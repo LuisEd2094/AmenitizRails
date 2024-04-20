@@ -22,6 +22,6 @@ class Promotion < ApplicationRecord
                 discount = (units * price * self.discount_percent) / 100
             end
         end
-        discount
+        discount.round(2)
     end
 end
