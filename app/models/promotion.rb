@@ -10,4 +10,18 @@ class Promotion < ApplicationRecord
             raise ArgumentError, "Id attribute is required"
         end
     end
+
+    def get_discount(units, price)
+        discount = 0.0
+        if self.discount_type == "EQUAL"
+            if units >= self.condition
+                discount =  ((units / self.condition) * price * self.discount_percent) / 100
+            end
+        elsif self.discount_type == "GREATER"
+            if units >= self.condition
+                discount = (units * price * self.discount_percent) / 100
+            end
+        end
+        discount
+    end
 end

@@ -49,4 +49,63 @@ class PromotionTest < ActiveSupport::TestCase
     assert_equal existing_promotion.discount_type, promotion.discount_type
     assert_equal existing_promotion.name, promotion.name
   end
+
+
+  #EQUAL discount_type tests
+  test "check get_discount when promotion doesn't apply" do
+    promotion = Promotion.get_promotion(id: 1)
+
+    assert_equal promotion.get_discount(1, 5.00), 0.0
+  end
+
+  test "check get_discount when promotion applies" do
+    promotion = Promotion.get_promotion(id: 1)
+
+    assert_equal promotion.get_discount(2, 5.00), 5.00
+
+  end
+
+  test "check get_discount when promotion applies more than once" do
+    promotion = Promotion.get_promotion(id: 1)
+
+    assert_equal promotion.get_discount(4, 5.00), 10.00
+
+  end
+
+  test "check get_discount when promotion applies more than once but uneven" do
+    promotion = Promotion.get_promotion(id: 1)
+
+    assert_equal promotion.get_discount(3, 5.00), 5.00
+
+  end
+
+  #GREATER discount_type test
+
+  test "check when promotion doesn't apply" do
+    promotion = Promotion.get_promotion(id: 2)
+
+    assert_equal promotion.get_discount(1, 5.00), 0.0
+  end
+
+  test "check when promotion applies" do
+    promotion = Promotion.get_promotion(id: 2)
+
+    assert_equal promotion.get_discount(3, 5.00), (5.00 * 3 * 0.10)
+  end
+
+  test "check when promotion applies more than once" do
+    promotion = Promotion.get_promotion(id: 2)
+
+    assert_equal promotion.get_discount(4, 5.00), (5.00 * 4.0 * 0.10)
+
+  end
+
+  test "check when promotion applies more than once but uneven" do
+    promotion = Promotion.get_promotion(id: 2)
+
+    assert_equal promotion.get_discount(3, 5.00), (5.00 * 3.0 * 0.10)
+
+  end
+
+
 end
