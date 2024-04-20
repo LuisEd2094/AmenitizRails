@@ -12,3 +12,5 @@ Promotion.create!(name:"2x1",condition: 2, discount_type: "EQUAL", discount_perc
 promotion = Promotion.find_by(name: "2x1")
 
 Product.create!(code: "GR1", name: "Green Tea", price: 3.11, promotion: promotion)
+Product.create!(code: "SR1", name: "Strawberries", price: 5.00, promotion: promotion)
+Product.create!(code: "CF1", name: "Coffee", price: 11.23, promotion: promotion)

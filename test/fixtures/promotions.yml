@@ -1,11 +1,8 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  discount_percent: 9.99
-  condition: 1
-  discount_type: MyString
-
-two:
-  discount_percent: 9.99
-  condition: 1
-  discount_type: MyString
+  discount_percent: 100.00
+  condition: 2
+  discount_type: EQUAL
+  id: 1
+  name: 2x1
