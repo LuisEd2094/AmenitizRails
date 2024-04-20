@@ -6,3 +6,17 @@ one:
   discount_type: EQUAL
   id: 1
   name: 2x1
+
+two:
+  discount_percent: 10.00
+  condition: 3
+  discount_type: GREATER
+  id: 2
+  name: 10% after 3 units
+
+three:
+  discount_percent: 33.33
+  condition: 3
+  discount_type: GREATER
+  id: 3
+  name: 33.33% after 3 units
