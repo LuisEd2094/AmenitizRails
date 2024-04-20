@@ -35,4 +35,13 @@ class ProductTest < ActiveSupport::TestCase
       product = Product.get_product()
     end
   end
+
+
+  test "get_product works correctly if product has no promotion associated" do
+    existing_product = products(:four)
+    product = Product.get_product(code: "CF2")
+    assert_equal existing_product.name, product.name
+    assert_equal existing_product.price, product.price
+    assert_nil  product.promotion_id
+  end
 end

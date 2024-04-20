@@ -3,11 +3,22 @@
 one:
   code: GR1
   name: Green Tea
-  price: 9.99
+  price: 3.11
   promotion_id: 1
 
 two:
   code: SR1
   name: Strawberry
-  price: 9.99
+  price: 5.00
   promotion_id: 1
+
+three:
+  code: CF1
+  name: Strawberry
+  price: 11.23
+  promotion_id: 1
+
+four:
+  code: CF2
+  name: Coffee No Promo
+  price: 11.23
