@@ -8,9 +8,9 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Promotion.create!(name:"2x1",condition: 2, discount_type: "EQUAL", discount_percent: 100.00)
-Promotion.create!(name:"10% after 3 units",condition: 3, discount_type: "GREATER", discount_percent: 10.00)
-Promotion.create!(name:"33.33% after 3 units",condition: 3, discount_type: "GREATER", discount_percent: 33.33)
+Promotion.create!(name:"2x1",condition: 2, discount_type: "EQUAL", divisor: 1.00)
+Promotion.create!(name:"10% after 3 units",condition: 3, discount_type: "GREATER", divisor: 10.00)
+Promotion.create!(name:"33.33% after 3 units",condition: 3, discount_type: "GREATER", divisor: 3.00)
 
 promotion_2x1 = Promotion.find_by(name: "2x1")
 promotion_10percent = Promotion.find_by(name: "10% after 3 units")
