@@ -6,8 +6,8 @@ function Cart(props) {
   const [selectedProducts, setSelectedProducts] = React.useState([]);
   const [total, setTotal] = React.useState(null);
 
-  const handleAddToCart = (productCode, quantity) => {
-    const existingProductIndex = selectedProducts.findIndex(product => product.productCode === productCode);
+  const handleAddToCart = (product_code, quantity) => {
+    const existingProductIndex = selectedProducts.findIndex(product => product.product_code === product_code);
 
     if (existingProductIndex !== -1) {
       // If the product exists, update its quantity
@@ -18,7 +18,7 @@ function Cart(props) {
       });
     } else {
       // If the product doesn't exist, add it to selectedProducts
-      setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, { productCode, quantity }]);
+      setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, { product_code, quantity }]);
     }
   };
   
