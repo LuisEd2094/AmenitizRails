@@ -50,31 +50,33 @@ class PromotionTest < ActiveSupport::TestCase
     assert_equal existing_promotion.name, promotion.name
   end
 
+  def assert_result(expected, price)
+    assert_equal expected, price.to_f.truncate(2)
+  end
+
   #EQUAL discount_type tests
   test "check get_discount Equal when promotion doesn't apply" do
     promotion = Promotion.get_promotion(id: 1)
-
-    assert_equal 0.0, promotion.get_discount(1, 3.11)
+    assert_result(0.0, promotion.get_discount(1, 3.11))
   end
 
   test "check get_discount Equal when promotion applies" do
     promotion = Promotion.get_promotion(id: 1)
+    assert_result(3.11, promotion.get_discount(2, 3.11))
 
-    assert_equal 3.11, promotion.get_discount(2, 3.11)
 
   end
 
   test "check get_discount Equal when promotion applies more than once" do
     promotion = Promotion.get_promotion(id: 1)
+    assert_result(6.22, promotion.get_discount(4, 3.11))
 
-    assert_equal 6.22, promotion.get_discount(4, 3.11)
 
   end
 
   test "check get_discount Equal when promotion applies more than once but uneven" do
     promotion = Promotion.get_promotion(id: 1)
-
-    assert_equal 3.11, promotion.get_discount(3, 3.11)
+    assert_result(3.11, promotion.get_discount(3, 3.11))
 
   end
 
@@ -82,20 +84,20 @@ class PromotionTest < ActiveSupport::TestCase
 
   test "check GREATER type 10% doesn't apply" do
     promotion = Promotion.get_promotion(id: 2)
+    assert_result(0.0, promotion.get_discount(1, 5))
 
-    assert_equal 0.0, promotion.get_discount(1, 5)
   end
 
   test "check GREATER type 10% applies" do
     promotion = Promotion.get_promotion(id: 2)
+    assert_result(1.5, promotion.get_discount(3, 5))
 
-    assert_equal 1.5, promotion.get_discount(3, 5)
   end
 
   test "check GREATER type 10% applies more than once" do
     promotion = Promotion.get_promotion(id: 2)
+    assert_result(2.0, promotion.get_discount(4, 5))
 
-    assert_equal 2.0, promotion.get_discount(4, 5)
 
   end
 
@@ -103,33 +105,33 @@ class PromotionTest < ActiveSupport::TestCase
 
   test "check GREATER type 33% doesn't apply" do
     promotion = Promotion.get_promotion(id: 3)
+    assert_result(0.0, promotion.get_discount(1, 11.23))
 
-    assert_equal 0.0, promotion.get_discount(1, 11.23)
   end
 
   test "check GREATER type 33% applies" do
     promotion = Promotion.get_promotion(id: 3)
-    assert_equal (11.23), promotion.get_discount(3, 11.23)
+
+    assert_result((11.23), promotion.get_discount(3, 11.23))
+
   end
 
   test "check GREATER type 33% applies 4 times" do
     promotion = Promotion.get_promotion(id: 3)
+    assert_result((14.97), promotion.get_discount(4, 11.23))
 
-    assert_equal (14.97), promotion.get_discount(4, 11.23)
 
   end
 
   test "check GREATER type 33% applies 5 times" do
     promotion = Promotion.get_promotion(id: 3)
-
-    assert_equal (18.71), promotion.get_discount(5, 11.23)
+    assert_result((18.71), promotion.get_discount(5, 11.23))
 
   end
 
   test "check GREATER type 33% applies 6 times" do
     promotion = Promotion.get_promotion(id: 3)
-
-    assert_equal (22.46), promotion.get_discount(6, 11.23)
+    assert_result((22.46), promotion.get_discount(6, 11.23))
 
   end
 end

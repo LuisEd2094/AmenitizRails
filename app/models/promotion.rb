@@ -25,6 +25,6 @@ class Promotion < ApplicationRecord
                 discount += units * discount_per_unit
             end
         end
-        discount.to_f.truncate(2)
+        discount
     end
 end
