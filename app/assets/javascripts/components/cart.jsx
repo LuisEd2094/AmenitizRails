@@ -7,7 +7,19 @@ function Cart(props) {
   const [total, setTotal] = React.useState(null);
 
   const handleAddToCart = (productCode, quantity) => {
-    setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, { productCode, quantity }]);
+    const existingProductIndex = selectedProducts.findIndex(product => product.productCode === productCode);
+
+    if (existingProductIndex !== -1) {
+      // If the product exists, update its quantity
+      setSelectedProducts(prevSelectedProducts => {
+        const updatedProducts = [...prevSelectedProducts];
+        updatedProducts[existingProductIndex].quantity = quantity;
+        return updatedProducts;
+      });
+    } else {
+      // If the product doesn't exist, add it to selectedProducts
+      setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, { productCode, quantity }]);
+    }
   };
   
   const handleSubmitPurchase =  (event) => {
