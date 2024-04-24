@@ -10,13 +10,13 @@ two:
   code: SR1
   name: Strawberry
   price: 5.00
-  promotion_id: 1
+  promotion_id: 2
 
 three:
   code: CF1
-  name: Strawberry
+  name: Coffee
   price: 11.23
-  promotion_id: 1
+  promotion_id: 3
 
 four:
   code: CF2

@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   post '/add_to_cart', to: 'cart#add_to_cart'
 
-
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "cart#index"
 end
