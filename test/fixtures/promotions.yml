@@ -1,22 +1,22 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  discount_percent: 100.00
+  divisor: 1
   condition: 2
   discount_type: EQUAL
   id: 1
   name: 2x1
 
 two:
-  discount_percent: 10.00
+  divisor: 10
   condition: 3
   discount_type: GREATER
   id: 2
   name: 10% after 3 units
 
 three:
-  discount_percent: 33.33
+  divisor: 3
   condition: 3
   discount_type: GREATER
   id: 3
-  name: 33.33% after 3 units
+  name: 1/3 discount after 3rd unit

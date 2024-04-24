@@ -12,16 +12,19 @@ class Promotion < ApplicationRecord
     end
 
     def get_discount(units, price)
-        discount = 0.0
+        discount = BigDecimal(0.0)
         if self.discount_type == "EQUAL"
             if units >= self.condition
-                discount =  ((units / self.condition) * price * self.discount_percent) / 100
+                discount_per_unit = price / self.divisor
+
+                discount +=  discount_per_unit * (units / self.condition)
             end
         elsif self.discount_type == "GREATER"
             if units >= self.condition
-                discount = (units * price * self.discount_percent) / 100
+                discount_per_unit = price / self.divisor
+                discount += units * discount_per_unit
             end
         end
-        discount.round(2)
+        discount.to_f.truncate(2)
     end
 end

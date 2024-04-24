@@ -5,7 +5,7 @@ class PromotionTest < ActiveSupport::TestCase
   test "initialize finds existing promotion by id" do
     existing_promotion = promotions(:one)
     promotion = Promotion.get_promotion(id: 1)
-    assert_equal existing_promotion.discount_percent, promotion.discount_percent
+    assert_equal existing_promotion.divisor, promotion.divisor
     assert_equal existing_promotion.condition, promotion.condition
     assert_equal existing_promotion.discount_type, promotion.discount_type
     assert_equal existing_promotion.name, promotion.name
@@ -21,7 +21,7 @@ class PromotionTest < ActiveSupport::TestCase
   test "initializes SR1" do
     existing_promotion = promotions(:two)
     promotion = Promotion.get_promotion(id: 2)
-    assert_equal existing_promotion.discount_percent, promotion.discount_percent
+    assert_equal existing_promotion.divisor, promotion.divisor
     assert_equal existing_promotion.condition, promotion.condition
     assert_equal existing_promotion.discount_type, promotion.discount_type
     assert_equal existing_promotion.name, promotion.name
@@ -29,7 +29,7 @@ class PromotionTest < ActiveSupport::TestCase
 
   test "fails to initialize when more than one value is passed" do
     assert_raises ArgumentError do
-      promotion = Promotion.get_promotion(id: 1, discount_percent: 100.00)
+      promotion = Promotion.get_promotion(id: 1, divisor: 100.00)
     end
   end
 
@@ -44,38 +44,37 @@ class PromotionTest < ActiveSupport::TestCase
     existing_promotion = promotions(:one)
     promotion = Promotion.get_promotion(id: product.promotion_id)
 
-    assert_equal existing_promotion.discount_percent, promotion.discount_percent
+    assert_equal existing_promotion.divisor, promotion.divisor
     assert_equal existing_promotion.condition, promotion.condition
     assert_equal existing_promotion.discount_type, promotion.discount_type
     assert_equal existing_promotion.name, promotion.name
   end
 
-
   #EQUAL discount_type tests
   test "check get_discount Equal when promotion doesn't apply" do
     promotion = Promotion.get_promotion(id: 1)
 
-    assert_equal promotion.get_discount(1, 5.00), 0.0
+    assert_equal 0.0, promotion.get_discount(1, 3.11)
   end
 
   test "check get_discount Equal when promotion applies" do
     promotion = Promotion.get_promotion(id: 1)
 
-    assert_equal promotion.get_discount(2, 5.00), 5.00
+    assert_equal 3.11, promotion.get_discount(2, 3.11)
 
   end
 
   test "check get_discount Equal when promotion applies more than once" do
     promotion = Promotion.get_promotion(id: 1)
 
-    assert_equal promotion.get_discount(4, 5.00), 10.00
+    assert_equal 6.22, promotion.get_discount(4, 3.11)
 
   end
 
   test "check get_discount Equal when promotion applies more than once but uneven" do
     promotion = Promotion.get_promotion(id: 1)
 
-    assert_equal promotion.get_discount(3, 5.00), 5.00
+    assert_equal 3.11, promotion.get_discount(3, 3.11)
 
   end
 
@@ -84,56 +83,53 @@ class PromotionTest < ActiveSupport::TestCase
   test "check GREATER type 10% doesn't apply" do
     promotion = Promotion.get_promotion(id: 2)
 
-    assert_equal promotion.get_discount(1, 5.00), 0.0
+    assert_equal 0.0, promotion.get_discount(1, 5)
   end
 
   test "check GREATER type 10% applies" do
     promotion = Promotion.get_promotion(id: 2)
 
-    assert_equal promotion.get_discount(3, 5.00), (5.00 * 3 * 0.10).round(2)
+    assert_equal 1.5, promotion.get_discount(3, 5)
   end
 
   test "check GREATER type 10% applies more than once" do
     promotion = Promotion.get_promotion(id: 2)
 
-    assert_equal promotion.get_discount(4, 5.00), (5.00 * 4.0 * 0.10).round(2)
+    assert_equal 2.0, promotion.get_discount(4, 5)
 
   end
-
-  test "check GREATER type 10% applies more than once but uneven" do
-    promotion = Promotion.get_promotion(id: 2)
-
-    assert_equal promotion.get_discount(3, 5.00), (5.00 * 3.0 * 0.10).round(2)
-
-  end
-
 
   #GREATER discount_type test 33%
 
   test "check GREATER type 33% doesn't apply" do
     promotion = Promotion.get_promotion(id: 3)
 
-    assert_equal promotion.get_discount(1, 5.00), 0.0
+    assert_equal 0.0, promotion.get_discount(1, 11.23)
   end
 
   test "check GREATER type 33% applies" do
     promotion = Promotion.get_promotion(id: 3)
-
-    assert_equal promotion.get_discount(3, 5.00), (5.00 * 3 * 0.3333).round(2)
+    assert_equal (11.23), promotion.get_discount(3, 11.23)
   end
 
-  test "check GREATER type 33% applies more than once" do
+  test "check GREATER type 33% applies 4 times" do
     promotion = Promotion.get_promotion(id: 3)
 
-    assert_equal promotion.get_discount(4, 5.00), (5.00 * 4.0 * 0.3333).round(2)
+    assert_equal (14.97), promotion.get_discount(4, 11.23)
 
   end
 
-  test "check GREATER type 33% applies more than once but uneven" do
+  test "check GREATER type 33% applies 5 times" do
     promotion = Promotion.get_promotion(id: 3)
 
-    assert_equal promotion.get_discount(3, 5.00), (5.00 * 3.0 * 0.3333).round(2)
+    assert_equal (18.71), promotion.get_discount(5, 11.23)
+
   end
 
+  test "check GREATER type 33% applies 6 times" do
+    promotion = Promotion.get_promotion(id: 3)
 
+    assert_equal (22.46), promotion.get_discount(6, 11.23)
+
+  end
 end
