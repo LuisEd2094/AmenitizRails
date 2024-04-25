@@ -12,8 +12,7 @@ class Promotion < ApplicationRecord
 
     def get_discount(units, price)
         discount = BigDecimal(0.0)
-        discount_per_unit = price / self.divisor
-
+        discount_per_unit = BigDecimal(price / self.divisor)
         if self.discount_type == "EQUAL"
             if units >= self.condition
                 discount +=  discount_per_unit * (units / self.condition)
