@@ -1,36 +1,19 @@
-import { Container } from 'react-bootstrap';
-
-
-const productGridStyles = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-  gap: '20px',
-};
-
-const productCardStyles = {
-  border: '1px solid #ccc',
-  padding: '20px',
-};
-
 function Cart (props) {
   const [selectedProducts, setSelectedProducts] = React.useState([]);
   const [total, setTotal] = React.useState(null);
   const [discount, setDiscount] = React.useState(null);
   const [hasDiscount, setHasDiscount] = React.useState(null);
 
-
   const handleAddToCart = (product_code, quantity) => {
     const existingProductIndex = selectedProducts.findIndex(product => product.product_code === product_code);
 
     if (existingProductIndex !== -1) {
-      // If the product exists, update its quantity
       setSelectedProducts(prevSelectedProducts => {
         const updatedProducts = [...prevSelectedProducts];
         updatedProducts[existingProductIndex].quantity = quantity;
         return updatedProducts;
       });
     } else {
-      // If the product doesn't exist, add it to selectedProducts
       setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, { product_code, quantity }]);
     }
   };
@@ -44,11 +27,9 @@ function Cart (props) {
         return selectedProducts[existingProductIndex].quantity;
     }
     else {
-      // If the product doesn't exist, add it to selectedProducts
       return 0
     }
   }
-
 
   const handleIncrement = (product_code) => {
     const existingProductIndex = selectedProducts.findIndex(product => product.product_code === product_code);
@@ -57,7 +38,6 @@ function Cart (props) {
     {    
       const updatedProducts = [...selectedProducts];
       handleAddToCart(product_code, updatedProducts[existingProductIndex].quantity + 1 )
-      console.log([...selectedProducts])
     }
     else
     {
@@ -75,7 +55,6 @@ function Cart (props) {
         handleAddToCart(product_code, updatedProducts[existingProductIndex].quantity - 1 )
       else 
         handleAddToCart(product_code, 0 )
-      console.log([...selectedProducts])
     }
     else
     {
@@ -83,10 +62,7 @@ function Cart (props) {
     }
   };
 
-
-  
   const handleSubmitPurchase = (event) => {
-    event.preventDefault();
     const csrfToken = document.querySelector('[name=csrf-token]').content;
     const response = fetch('/add_to_cart', 
     {
@@ -113,27 +89,34 @@ function Cart (props) {
         setHasDiscount(true);
         setDiscount(data.discount_amount)
       }
+      else
+      {
+        setHasDiscount(false);
+        setDiscount(0)
+      }
       setTotal(data.total);
     })
     .catch(error => {
       console.error('Error fetching data:', error);
     });
   }
-
+  console.log(selectedProducts);
   return(
     <div>
       <ProductList getQuantity={getQuantity} cart={selectedProducts} products={props.products} handleAddToCart={handleAddToCart}  handleIncrement={handleIncrement} handleDecrement={handleDecrement}></ProductList>
       <button onClick={handleSubmitPurchase}>Add to Cart</button>
-
       {total && (
       <div>
         <h3>Total: {total}€</h3>
       </div>
       )}
       {hasDiscount && (
-          <div> 
-            <h3>Discount: {discount}€</h3>
-          </div>
+      <div> 
+        <h3>Discount: {discount}€</h3>
+      </div>
       )
-    }</div>)
+      }
+    </div>)
 };
+
+

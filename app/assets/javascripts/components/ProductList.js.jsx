@@ -20,9 +20,8 @@ function ProductList({ products, handleAddToCart, handleIncrement, handleDecreme
         <div key={product.id} style={productCardStyles}>
           <div>
             <h3>{product.name}</h3>
-            <p>Price: ${product.price}€</p>
+            <p>Price: {product.price}€</p>
           </div>
-          <input type="number" min="1" defaultValue="0" onChange={(e) => handleAddToCart(product.code, parseInt(e.target.value))} />
           <div>
               <button onClick={() => handleDecrement(product.code)}>-</button>
               <span style={{ margin: '0 10px' }}>{getQuantity(product.code)}</span>
