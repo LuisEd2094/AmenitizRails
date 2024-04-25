@@ -13,9 +13,10 @@ class PromotionTest < ActiveSupport::TestCase
 
   test "initialize raises error for non-existing promotion id" do
     non_existing_id = 500
-    assert_raises ActiveRecord::RecordNotFound do
-      Promotion.get_promotion(id: non_existing_id)
-    end
+
+    assert_nil Promotion.get_promotion(id: non_existing_id)
+
+ 
   end
 
   test "initializes SR1" do

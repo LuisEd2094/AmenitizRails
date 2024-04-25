@@ -4,7 +4,7 @@ class Promotion < ApplicationRecord
 
         if attributes.present? && attributes.size < 2
             id = attributes[:id]
-            Promotion.find_by!(id: id)
+            Promotion.find_by(id: id)
         else
             raise ArgumentError, "Id attribute is required"
         end
