@@ -20,3 +20,26 @@ three:
   discount_type: GREATER
   id: 3
   name: 1/3 discount after 3rd unit
+
+
+four:
+  divisor: 1
+  condition: 3
+  discount_type: EQUAL
+  id: 4
+  name: 3x2
+
+
+five:
+  divisor: 0.5
+  condition: 3
+  discount_type: EQUAL
+  id: 5
+  name: 3x1
+
+six:
+  divisor: 5
+  condition: 3
+  discount_type: GREATER
+  id: 6
+  name: 1/5 after 3 units

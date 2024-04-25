@@ -22,3 +22,23 @@ four:
   code: CF2
   name: Coffee No Promo
   price: 11.23
+
+
+five:
+  code: CF3
+  name: Coffee_3x2
+  price: 11.23
+  promotion_id: 4
+
+
+six:
+  code: CF4
+  name: Coffee_3x1
+  price: 11.23
+  promotion_id: 5
+
+seven:
+  code: CF5
+  name: Coffee_fifth
+  price: 11.23
+  promotion_id: 6
