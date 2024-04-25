@@ -13,3 +13,32 @@
  *= require_tree .
  *= require_self
  */
+
+
+ body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Set the body height to 100% of the viewport height */
+    margin: 0; /* Reset the margin */
+    background-color: #f0f0f0; /* Light gray background for the body */
+  }
+  
+  header {
+    flex: 0 0 2%; /* Make the header take up 10% of the available height */
+    background-color: #f0f0f0; /* Light gray background for the header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Small shadow for the header */
+    padding: 20px;
+  }
+  
+  main {
+    flex: 1; /* Make the main content area take up the remaining space */
+    background-color: #fff; /* White background for the main content area */
+    padding: 20px;
+  }
+
+
+  
+.logo img {
+    max-width: 150px; /* Adjust as needed */
+  }
+  
