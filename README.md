@@ -77,7 +77,15 @@ sudo gem install bundler
 
 Now we need to use bundle to install our gems. By default, it'd try to install them at /var/lib/gems. You may or may not have access to this folder with your current user. 
 
-There are two options you might try. You can do:
+There are a few options you might try. You can do:
+
+```bash
+bundle config set path './vendor/bundle'
+```
+
+this will configure your bundle to use the path at ```./vendor/bundle``` to store and check your gems.
+
+You can simply run it as sudo, but this might cause issues for other users:
 
 ```bash
 sudo bundler install
@@ -96,7 +104,7 @@ bundler install
 ```
 
 
-This will install all the gems you'd need.
+Either way this will install all the gems you'd need.
 
 After this, we need to set up our databases. We can let rails handle it running: 
 
