@@ -4,7 +4,7 @@
 - [Download App](#download-app)
 - [System dependencies](#system-dependencies)
 - - [First time installing Ruby?](#install-ruby)
-- - [First time installing PostGreSQL?](#first-time-installing-psql)
+- - [First time installing PostGreSQL?](#install-psql)
 - [Set up App](#set-up-app)
 - [Testing](#testing)
 ---
