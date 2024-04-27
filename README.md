@@ -31,7 +31,7 @@ It's able to handle two types of discounts at the moment, what I call ```EQUAL``
 
 Once the calculation is done, it'd send back a json response which React will consume to update the page the user is on.
 
-<font size="2"> [Back to Table of contents](#table-of-contents) </font>
+<font size="1"> [Back to Table of contents](#table-of-contents) </font>
 
 ## System dependencies
 
@@ -39,6 +39,7 @@ Once the calculation is done, it'd send back a json response which React will co
 - Ruby on Rails
 - PostgreSQL [First time installing PSQL?](#install-psql)
 
+<font size="1"> [Back to Table of contents](#table-of-contents) </font>
 
 ---
 ## Download App
@@ -49,7 +50,7 @@ Clone this repository to your location of choice.
 git clone https://github.com/LuisEd2094/AmenitizRails
 ```
 
-<font size="2"> [Back to Table of contents](#table-of-contents) </font>
+<font size="1"> [Back to Table of contents](#table-of-contents) </font>
 ---
 
 
@@ -85,7 +86,7 @@ You can check the datapoints created in our ```db/seeds.rb``` file. You can add 
 
 Finally, start the server running ```rails s``` or ```rails server``` at the root of our folder and then open http://127.0.0.1:3000 in your web browser.
 
-<font size="2"> [Back to Table of contents](#table-of-contents) </font>
+<font size="1"> [Back to Table of contents](#table-of-contents) </font>
 
 
 ---
@@ -120,7 +121,7 @@ export PG_PASSWORD=yourpassword
 ```
 to the end of it so that it bash loads your password correctly everytime you run the terminal.
 
-<font size="2"> [Back to Table of contents](#table-of-contents) </font>
+<font size="1"> [Back to Table of contents](#table-of-contents) </font>
 
 ---
 
@@ -140,7 +141,9 @@ rails test test/models/product_test.rb
 ```
 
 will run all the test for the model ```product```.
-<font size="2"> [Back to Table of contents](#table-of-contents) </font>
+
+<font size="1"> [Back to Table of contents](#table-of-contents) </font>
+
 ### Install Ruby
 
 We are using Ruby 3.0.2, you can run this in the root of our app to install it
@@ -148,7 +151,7 @@ We are using Ruby 3.0.2, you can run this in the root of our app to install it
 ```bash
 sudo apt install ruby-full -y
 ```
-<font size="2"> [Back to Table of contents](#table-of-contents) </font>
+<font size="1"> [Back to Table of contents](#table-of-contents) </font>
 ---
 ### Install PSQL
 
@@ -214,4 +217,4 @@ ALTER USER postgres PASSWORD 'new_password';
 
 That's it! You can close the terminal now or type ```exit``` once to exit the server and ```exit``` again to leave our postgre's terminal session. 
 
-<font size="2"> [Back to Table of contents](#table-of-contents) </font>
+<font size="1"> [Back to Table of contents](#table-of-contents) </font>
