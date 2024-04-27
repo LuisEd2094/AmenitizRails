@@ -1,81 +1,82 @@
+const button_style = { 
+  display: 'flex', 
+  justifyContent: 'center' }
+
 function Cart (props) {
-  const [selectedProducts, setSelectedProducts] = React.useState([]);
-  const [total, setTotal] = React.useState(null);
-  const [discount, setDiscount] = React.useState(null);
-  const [hasDiscount, setHasDiscount] = React.useState(null);
+  const [products, set_products] = React.useState([]);
+  const [total, set_total] = React.useState(null);
+  const [discount, set_discount] = React.useState(null);
+  const [has_discount, set_has_discount] = React.useState(null);
 
-  const handleAddToCart = (product_code, quantity) => {
-    const existingProductIndex = selectedProducts.findIndex(product => product.product_code === product_code);
+  const add_to_cart = (product_code, quantity) => {
+    const product_index = products.findIndex(product => product.product_code === product_code);
 
-    if (existingProductIndex !== -1) {
-      setSelectedProducts(prevSelectedProducts => {
-        const updatedProducts = [...prevSelectedProducts];
-        updatedProducts[existingProductIndex].quantity = quantity;
-        return updatedProducts;
+    if (product_index !== -1) {
+      set_products(prev_products => {
+        const updated_products = [...prev_products];
+        updated_products[product_index].quantity = quantity;
+        return updated_products;
       });
     } else {
-      setSelectedProducts(prevSelectedProducts => [...prevSelectedProducts, { product_code, quantity }]);
+      set_products(prev_products => [...prev_products, { product_code, quantity }]);
     }
   };
 
-  const getQuantity = (product_code) => 
+  const get_quantity = (product_code) => 
   {    
-    const existingProductIndex = selectedProducts.findIndex(product => product.product_code === product_code);
+    const product_index = products.findIndex(product => product.product_code === product_code);
 
-    if (existingProductIndex !== -1) 
+    if (product_index !== -1) 
     {
-        return selectedProducts[existingProductIndex].quantity;
+        return products[product_index].quantity;
     }
     else {
       return 0
     }
   }
 
-  const handleIncrement = (product_code) => {
-    const existingProductIndex = selectedProducts.findIndex(product => product.product_code === product_code);
+  const increment = (product_code) => {
+    const product_index = products.findIndex(product => product.product_code === product_code);
 
-    if (existingProductIndex !== -1)
+    if (product_index !== -1)
     {    
-      const updatedProducts = [...selectedProducts];
-      handleAddToCart(product_code, updatedProducts[existingProductIndex].quantity + 1 )
+      const updated_products = [...products];
+      add_to_cart(product_code, updated_products[product_index].quantity + 1 )
     }
     else
     {
-      handleAddToCart(product_code, 1);
+      add_to_cart(product_code, 1);
     }
   };
 
-  const handleDecrement = (product_code) => {
-    const existingProductIndex = selectedProducts.findIndex(product => product.product_code === product_code);
+  const decrement = (product_code) => {
+    const product_index = products.findIndex(product => product.product_code === product_code);
 
-    if (existingProductIndex !== -1)
+    if (product_index !== -1)
     {    
-      const updatedProducts = [...selectedProducts];
-      if (updatedProducts[existingProductIndex].quantity > 1)
-        handleAddToCart(product_code, updatedProducts[existingProductIndex].quantity - 1 )
+      const updated_products = [...products];
+      if (updated_products[product_index].quantity > 1)
+        add_to_cart(product_code, updated_products[product_index].quantity - 1 )
       else 
-        handleAddToCart(product_code, 0 )
-    }
-    else
-    {
-      handleAddToCart(product_code, 0);
+        add_to_cart(product_code, 0 )
     }
   };
 
-  const handleSubmitPurchase = (event) => {
-    const csrfToken = document.querySelector('[name=csrf-token]').content;
+  const submit_cart = () => {
+    const csrf_token = document.querySelector('[name=csrf-token]').content;
     const response = fetch('/add_to_cart', 
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken,
+        'X-CSRF-Token': csrf_token,
 
       },
-      body: JSON.stringify({ products: selectedProducts }),
+      body: JSON.stringify({ products: products }),
     }
     );
 
+      //Wait for response and parse the data, updating total and discount
     response.then(response => {
       if (!response.ok) 
       {
@@ -86,31 +87,34 @@ function Cart (props) {
     .then(data => {
       if (data.has_discount)
       {
-        setHasDiscount(true);
-        setDiscount(data.discount_amount)
+        set_has_discount(true);
+        set_discount(data.discount_amount)
       }
       else
       {
-        setHasDiscount(false);
-        setDiscount(0)
+        set_has_discount(false);
+        set_discount(0)
       }
-      setTotal(data.total);
+      set_total(data.total);
     })
     .catch(error => {
       console.error('Error fetching data:', error);
     });
   }
-  console.log(selectedProducts);
+
+  
   return(
     <div>
-      <ProductList getQuantity={getQuantity} cart={selectedProducts} products={props.products} handleAddToCart={handleAddToCart}  handleIncrement={handleIncrement} handleDecrement={handleDecrement}></ProductList>
-      <button onClick={handleSubmitPurchase}>Add to Cart</button>
+      <ProductList get_quantity={get_quantity} cart={products} products={props.products}  increment={increment} decrement={decrement}></ProductList>
+      <div style={button_style}>
+        <button onClick={submit_cart}>Add to Cart</button>
+      </div>
       {total && (
       <div>
         <h3>Total: {total}€</h3>
       </div>
       )}
-      {hasDiscount && (
+      {has_discount && (
       <div> 
         <h3>Discount: {discount}€</h3>
       </div>
