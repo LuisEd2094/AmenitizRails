@@ -33,6 +33,8 @@ Once the calculation is done, it'd send back a json response which React will co
 
 <font size="1"> [Back to Table of contents](#table-of-contents) </font>
 
+---
+
 ## System dependencies
 
 - Ruby [First time installing Ruby?](#install-ruby)
@@ -42,6 +44,7 @@ Once the calculation is done, it'd send back a json response which React will co
 <font size="1"> [Back to Table of contents](#table-of-contents) </font>
 
 ---
+
 ## Download App
 
 Clone this repository to your location of choice.
@@ -51,6 +54,7 @@ git clone https://github.com/LuisEd2094/AmenitizRails
 ```
 
 <font size="1"> [Back to Table of contents](#table-of-contents) </font>
+
 ---
 
 
@@ -69,12 +73,33 @@ Once inside our folder run this bash script:
 #!/bin/bash
 sudo gem install rails
 sudo gem install bundler
-sudo bundler install
 ```
 
-this will install all the gems you'd need.
+Now we need to use bundle to install our gems. By default, it'd try to install them at /var/lib/gems. You may or may not have access to this folder with your current user. 
 
-Then run:
+There are two options you might try. You can do:
+
+```bash
+sudo bundler install
+```
+or you can instead change the path where bundler installs gems, for example to your user's home directory, running something like this:
+
+```bash
+export GEM_HOME="$HOME/.gems"
+export PATH="$GEM_HOME/bin:$PATH"
+```
+
+and then run 
+
+```bash
+bundler install
+```
+
+
+This will install all the gems you'd need.
+
+After this, we need to set up our databases. We can let rails handle it running: 
+
 
 ```bash
 rails db:create && rails db:migrate && rails db:seed
@@ -106,7 +131,7 @@ You can either modify the env variable used by changing it's name on this line:
 password : <%= ENV['PG_PASSWORD'] %>
 ```
 
-changing PG_PASSWORD to the variable with your passowrd or you can create a PG_PASSWORD with
+changing PG_PASSWORD to the variable with your password or you can create a PG_PASSWORD with
 
 ```bash
 export PG_PASSWORD=yourpassword
@@ -119,7 +144,7 @@ You can modify your ```~/.bashrc``` file by adding
 ```bash
 export PG_PASSWORD=yourpassword
 ```
-to the end of it so that it bash loads your password correctly everytime you run the terminal.
+to the end of it so that bash loads your password correctly everytime you run a new terminal.
 
 <font size="1"> [Back to Table of contents](#table-of-contents) </font>
 
@@ -152,6 +177,7 @@ We are using Ruby 3.0.2, you can run this in the root of our app to install it
 sudo apt install ruby-full -y
 ```
 <font size="1"> [Back to Table of contents](#table-of-contents) </font>
+
 ---
 ### Install PSQL
 
