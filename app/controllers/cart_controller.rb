@@ -41,7 +41,7 @@ class CartController < ApplicationController
             has_discount = true
         end
 
-        #.to_f.truncate(2).to_s so that it can return just up to the second decimal and we get the correct expected results
+        #to_f.to_s.sub(/(\d+\.\d{2})\d*/, '\1') so that it can return just up to the second decimal and we get the correct expected results
         
         render json: { 
             message: "Item added to cart successfully", 
