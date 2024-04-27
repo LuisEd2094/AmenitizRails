@@ -5,9 +5,6 @@ class CartController < ApplicationController
         @total = 0
     end
 
-    def fill_cart (products)
-
-    end
     def add_to_cart
         cart = {}
         products = params[:cart][:products]
