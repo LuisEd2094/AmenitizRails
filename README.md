@@ -46,6 +46,7 @@ Once the calculation is done, it'll send back a json response which React will c
 - React [First time installing React?](#install-react)
 - Ruby on Rails
 - PostgreSQL [First time installing PSQL?](#install-psql)
+- Ubuntu
 
 <font size="1"> [Back to Table of contents](#table-of-contents) </font>
 
