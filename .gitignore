@@ -7,6 +7,7 @@
 # Ignore bundler config.
 node_modules/
 /.bundle
+vendor/bundle
 
 # Ignore all environment files (except templates).
 /.env*
