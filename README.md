@@ -5,11 +5,13 @@
 - [System dependencies](#system-dependencies)
 - - [First time installing Ruby?](#install-ruby)
 - - [First time installing PostGreSQL?](#install-psql)
+- - [First time installing React?](#install-react)
 - [Set up App](#set-up-app)
 - - [Bundle](#bundle)
 - - [Database](#database)
 - - [Running the server](#running-the-server)
 - [Testing](#testing)
+- [Common Installation Errors](#common-installation-errors)
 ---
 
 # Description
@@ -41,6 +43,7 @@ Once the calculation is done, it'll send back a json response which React will c
 ## System dependencies
 
 - Ruby [First time installing Ruby?](#install-ruby)
+- React [First time installing React?](#install-react)
 - Ruby on Rails
 - PostgreSQL [First time installing PSQL?](#install-psql)
 
@@ -216,6 +219,7 @@ and it'll print the current user's name.
 To install PostgreSQL:
 ```bash
 sudo apt install postgresql -y
+sudo apt install libpq-dev -y
 ```
 Since it's a new installation, if we try to run ```psql``` it'll ask for a password that has not been set up. So we can run the following command to change our user on the terminal to postgres, which will allow us  to connect to our Postgre server.
 ```bash
@@ -270,3 +274,52 @@ to update postgres password.
 That's it! You can close the terminal now or type ```exit``` once to exit the server and ```exit``` again to leave our postgres' terminal session. 
 
 <font size="1"> [Back to Table of contents](#table-of-contents) </font>
+
+
+### Install React 
+
+If you haven't installed node in your system, you will need to install it along side the gem. Run:
+
+```bash
+sudo apt install nodejs -y
+```
+
+<font size="1"> [Back to Table of contents](#table-of-contents) </font>
+
+
+### Common Installation Errors
+
+You might need to upgrade your system to get everything working.
+
+Run:
+
+```bash
+sudo apt update && sudo apt upgrade
+sudo apt install -y  build-essential
+```
+
+You will need to have yaml libs installed, if you haven't you can run:
+
+```bash
+sudo apt install libyaml-dev libpython2.7-dev
+```
+
+Some first time users of Ruby have reported that they need to run:
+
+```bash
+sudo bundle install
+```
+
+at the root of the repository, then clone the repo again, and then run:
+
+```bash
+bundle config set path './vendor/bundle'
+bundle install
+```
+
+at the root of the repo.
+
+
+
+<font size="1"> [Back to Table of contents](#table-of-contents) </font>
+
